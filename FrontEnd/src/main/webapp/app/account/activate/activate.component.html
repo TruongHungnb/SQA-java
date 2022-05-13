@@ -1,0 +1,16 @@
+<div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1>Kích hoạt tài khoản</h1>
+
+      <div class="alert alert-success" *ngIf="success">
+        <span><strong>Tài khoản của bạn đã được kích hoạt.</strong></span>
+        <a class="alert-link" routerLink="/login">Đăng nhập</a>.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="error">
+        <strong>Tài khoản chưa được kích hoạt.</strong> Vui lòng sử dụng tài khoản có sẵn để đăng nhập.
+      </div>
+    </div>
+  </div>
+</div>

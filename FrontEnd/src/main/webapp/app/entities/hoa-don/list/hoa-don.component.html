@@ -1,0 +1,143 @@
+<div>
+  <h2 id="page-heading" data-cy="HoaDonHeading">
+    <span>Hóa đơn</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Làm mới danh sách</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-hoa-don"
+        [routerLink]="['/hoa-don/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Tạo mới hóa đơn </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="hoaDons?.length === 0">
+    <span>Không tồn tại hóa đơn</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="hoaDons && hoaDons.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Gia đình</span></th>
+          <th scope="col"><span>Tên chủ hộ</span></th>
+          <th scope="col"><span>Tháng sử dụng</span></th>
+          <th scope="col"><span>Chỉ số mới</span></th>
+          <th scope="col"><span>Chỉ số cũ</span></th>
+          <th scope="col"><span>Số nước</span></th>
+          <th scope="col"><span>Thành tiền</span></th>
+          <th scope="col"><span>Tiền thuế</span></th>
+          <th scope="col"><span>Tổng tiền</span></th>
+          
+          <th scope="col"><span>Trạng thái thanh toán</span></th>
+          <th scope="col"><span>Ngày thanh toán </span></th>
+          <!-- <th scope="col"><span>Thuế</span></th> -->
+          <!-- <th scope="col"><span>Bậc hộ nghèo</span></th>
+          <th scope="col"><span>Bậc hộ thường</span></th> -->
+         
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hoaDon of hoaDons; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/hoa-don', hoaDon.id, 'view']">{{ hoaDon.id }}</a>
+          </td>
+          <td>
+            <div *ngIf="hoaDon.giadinh">
+              <a [routerLink]="['/ho-gia-dinh', hoaDon.giadinh?.id, 'view']">{{ hoaDon.giadinh?.id }}</a>
+            </div>
+          </td>
+          <td>{{ hoaDon.tenChuHo }}</td>
+          <td>{{ hoaDon.thangSuDung }}</td>
+          <td>{{ hoaDon.chiSoMoi }}</td>
+          <td>{{ hoaDon.chiSoCu }}</td>
+          <td>{{ hoaDon.soNuoc }}</td>
+          <td>{{ hoaDon.thanhTien }}</td>
+          <td>{{ hoaDon.tienThue }}</td>
+          <td>{{ hoaDon.tongTien }}</td>
+          
+          <td>{{ hoaDon.trangThaiThanhToan }}</td>
+          <td>{{ hoaDon.ngayThanhToan | formatMediumDatetime }}</td>
+          <!-- <td>
+            <div *ngIf="hoaDon.thue">
+              <a [routerLink]="['/thue', hoaDon.thue?.id, 'view']">{{ hoaDon.thue?.id }}</a>
+            </div>
+          </td> -->
+          <!-- <td>
+            <div *ngIf="hoaDon.bacHoNgheo">
+              <a [routerLink]="['/bac-tien-ho-ngheo', hoaDon.bacHoNgheo?.id, 'view']">{{ hoaDon.bacHoNgheo?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="hoaDon.bacHoThuong">
+              <a [routerLink]="['/bac-tien-ho-thuong', hoaDon.bacHoThuong?.id, 'view']">{{ hoaDon.bacHoThuong?.id }}</a>
+            </div>
+          </td> -->
+          
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/hoa-don', hoaDon.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">Chi tiết</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/hoa-don', hoaDon.id, 'update-nuoc']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Cập nhật số nước</span>
+              </button>
+              <button
+              hidden
+                type="submit"
+                [routerLink]="['/hoa-don', hoaDon.id, 'tinh-tien']"
+                class="btn btn-secondary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <!-- <fa-icon icon="pencil-alt"></fa-icon> -->
+                <span class="d-none d-md-inline">Tính tiền nước</span>
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/hoa-don', hoaDon.id, 'thanh-toan']"
+                class="btn btn-secondary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <!-- <fa-icon icon="pencil-alt"></fa-icon> -->
+                <span class="d-none d-md-inline">Thanh toán</span>
+              </button>
+
+              <button type="submit" (click)="delete(hoaDon)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Xóa</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

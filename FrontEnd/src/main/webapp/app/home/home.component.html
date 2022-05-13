@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-6">
+    <h1 >HỆ THỐNG QUẢN LÝ NƯỚC</h1>
+
+    <p class="lead">Đây là trang chủ</p>
+
+    <div [ngSwitch]="isAuthenticated()">
+      <div class="alert alert-success" *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account">Bạn đang đăng nhập với tài khoản "{{ account.login }}".</span>
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>Nếu bạn muốn </span>
+        <a class="alert-link" (click)="login()">Đăng nhập</a
+        ><span
+          >, Bạn có thể đăng nhập với tài khoản mặc định:<br />- Quản trị viên (tài khoản="admin" and mật khẩu="admin") <br />- Khách hàng (login="user" and
+          password="user").</span
+        >
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>Bạn vẫn chưa có tài khoản?</span>&nbsp;
+        <a class="alert-link" routerLink="account/register">Đăng kí tài khoản mới</a>
+      </div>
+    </div>
+
+
+  
+
+ 
+  </div>
+</div>

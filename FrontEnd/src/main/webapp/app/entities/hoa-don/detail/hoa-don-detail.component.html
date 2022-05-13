@@ -1,0 +1,94 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="hoaDon">
+      <h2 data-cy="hoaDonDetailsHeading"><span>Hóa Đơn</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ hoaDon.id }}</span>
+        </dd>
+        <dt><span>Tên chủ hộ</span></dt>
+        <dd>
+          <span>{{ hoaDon.tenChuHo }}</span>
+        </dd>
+        <dt><span>Tháng sử dụng</span></dt>
+        <dd>
+          <span>{{ hoaDon.thangSuDung }}</span>
+        </dd>
+        <dt><span>Chỉ số mới</span></dt>
+        <dd>
+          <span>{{ hoaDon.chiSoMoi }}</span>
+        </dd>
+        <dt><span>Chỉ số cũ</span></dt>
+        <dd>
+          <span>{{ hoaDon.chiSoCu }}</span>
+        </dd>
+        <dt><span>Số nước</span></dt>
+        <dd>
+          <span>{{ hoaDon.soNuoc }}</span>
+        </dd>
+        <!-- <dt><span>Thue</span></dt>
+        <dd>
+          <div *ngIf="hoaDon.thue">
+            <a [routerLink]="['/thue', hoaDon.thue?.id, 'view']">{{ hoaDon.thue?.id }}</a>
+          </div>
+        </dd> -->
+        <!-- <dt><span>Bậc hộ nghèo</span></dt>
+        <dd>
+          <div *ngIf="hoaDon.bacHoNgheo">
+            <a [routerLink]="['/bac-tien-ho-ngheo', hoaDon.bacHoNgheo?.id, 'view']">{{ hoaDon.bacHoNgheo?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Bậc hộ thường</span></dt>
+        <dd>
+          <div *ngIf="hoaDon.bacHoThuong">
+            <a [routerLink]="['/bac-tien-ho-thuong', hoaDon.bacHoThuong?.id, 'view']">{{ hoaDon.bacHoThuong?.id }}</a>
+          </div>
+        </dd> -->
+        <dt><span>Hộ gia đình</span></dt>
+        <dd>
+          <div *ngIf="hoaDon.giadinh">
+            <a [routerLink]="['/ho-gia-dinh', hoaDon.giadinh?.id, 'view']">{{ hoaDon.giadinh?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Thành tiền </span></dt>
+        <dd>
+          <span>{{ hoaDon.thanhTien }}</span>
+        </dd>
+        <dt><span>Tiền thuế</span></dt>
+        <dd>
+          <span>{{ hoaDon.tienThue }}</span>
+        </dd>
+        <dt><span>Tổng tiền</span></dt>
+        <dd>
+          <span>{{ hoaDon.tongTien }}</span>
+        </dd>
+        <dt><span>Trạng thái thanh toán</span></dt>
+        <dd>
+          <span>{{ hoaDon.trangThaiThanhToan }}</span>
+        </dd>
+        <dt><span>Ngày thanh toán</span></dt>
+        <dd>
+          <span>{{ hoaDon.ngayThanhToan | formatMediumDatetime }}</span>
+        </dd>
+       
+        
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Quay lại</span>
+      </button>
+
+      <button type="button" [routerLink]="['/hoa-don', hoaDon.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Sửa</span>
+      </button>
+    </div>
+  </div>
+</div>

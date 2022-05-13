@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="hoGiaDinh">
+      <h2 data-cy="hoGiaDinhDetailsHeading"><span>Hộ Gia Đình</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.id }}</span>
+        </dd>
+        <dt><span>Tên chủ hộ</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.tenChuHo }}</span>
+        </dd>
+        <dt><span>Mã hộ</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.maHo }}</span>
+        </dd>
+        <dt><span>Số căn cước</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.soCanCuoc }}</span>
+        </dd>
+        <dt><span>Loại hộ</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.loaiHo }}</span>
+        </dd>
+        <dt><span>Sổ hộ nghèo</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.soHoNgheo }}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.email }}</span>
+        </dd>
+        <dt><span>Số điện thoại</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.sdt }}</span>
+        </dd>
+        <dt><span>Địa chỉ</span></dt>
+        <dd>
+          <span>{{ hoGiaDinh.diaChi }}</span>
+        </dd>
+        <dt><span>Tài khoản </span></dt>
+        <dd>
+          <div *ngIf="hoGiaDinh.taikhoan">
+            <a [routerLink]="['/tai-khoan', hoGiaDinh.taikhoan?.id, 'view']">{{ hoGiaDinh.taikhoan?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Quay lại</span>
+      </button>
+
+      <button type="button" [routerLink]="['/ho-gia-dinh', hoGiaDinh.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Sửa</span>
+      </button>
+    </div>
+  </div>
+</div>
